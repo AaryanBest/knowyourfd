@@ -6,17 +6,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Loader2, DollarSign, Calendar, Percent, TrendingUp, User, CreditCard, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface FDData {
   name: string;
-  clientId: string;
-  tenure: number;
+  client_id: string;
+  tenure_years: number;
   status: 'Active' | 'Matured' | 'Closed';
-  interestRate: number;
-  originalAmount: number;
-  currentValue: number;
-  maturityDate: string;
-  maturityAmount: number;
+  interest_rate: number;
+  original_amount: number;
+  current_value: number;
+  maturity_date: string;
+  maturity_amount: number;
 }
 
 const FDTracker = () => {
@@ -28,32 +29,6 @@ const FDTracker = () => {
   const [fdData, setFdData] = useState<FDData | null>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-
-  // Mock data for demonstration - replace with actual API call
-  const mockFDData: Record<string, FDData> = {
-    'FD001': {
-      name: 'John Doe',
-      clientId: 'FD001',
-      tenure: 36,
-      status: 'Active',
-      interestRate: 7.5,
-      originalAmount: 100000,
-      currentValue: 125000,
-      maturityDate: '2025-12-15',
-      maturityAmount: 127500
-    },
-    'FD002': {
-      name: 'Jane Smith',
-      clientId: 'FD002',
-      tenure: 60,
-      status: 'Matured',
-      interestRate: 8.0,
-      originalAmount: 250000,
-      currentValue: 350000,
-      maturityDate: '2024-06-20',
-      maturityAmount: 350000
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,28 +44,49 @@ const FDTracker = () => {
 
     setLoading(true);
     
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const { data, error } = await supabase
+        .from('fixed_deposits')
+        .select('*')
+        .eq('client_id', formData.clientId)
+        .eq('name', formData.name)
+        .eq('tenure_years', parseInt(formData.tenure))
+        .maybeSingle();
 
-    // Mock API response - replace with actual Google Sheets API call
-    const result = mockFDData[formData.clientId];
-    
-    if (result && result.name.toLowerCase() === formData.name.toLowerCase()) {
-      setFdData(result);
+      if (error) {
+        console.error('Error fetching FD data:', error);
+        toast({
+          title: "Error",
+          description: "Failed to retrieve FD information. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (data) {
+        setFdData(data as FDData);
+        toast({
+          title: "FD Details Retrieved",
+          description: "Successfully loaded your Fixed Deposit information.",
+        });
+      } else {
+        toast({
+          title: "No Record Found",
+          description: "Please verify your details and try again.",
+          variant: "destructive"
+        });
+        setFdData(null);
+      }
+    } catch (error) {
+      console.error('Unexpected error:', error);
       toast({
-        title: "FD Details Retrieved",
-        description: "Successfully loaded your Fixed Deposit information.",
-      });
-    } else {
-      toast({
-        title: "No Record Found",
-        description: "Please verify your details and try again.",
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
         variant: "destructive"
       });
-      setFdData(null);
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   const getStatusBadge = (status: string) => {
@@ -188,12 +184,12 @@ const FDTracker = () => {
                 <div className="space-y-2">
                   <Label htmlFor="tenure" className="flex items-center gap-2">
                     <Clock className="w-4 h-4" />
-                    Tenure (months)
+                    Tenure (years)
                   </Label>
                   <Input
                     id="tenure"
                     type="number"
-                    placeholder="e.g., 36"
+                    placeholder="e.g., 3"
                     value={formData.tenure}
                     onChange={(e) => setFormData(prev => ({ ...prev, tenure: e.target.value }))}
                     className="input-focus"
@@ -244,7 +240,7 @@ const FDTracker = () => {
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <CardTitle className="text-2xl">Fixed Deposit Details</CardTitle>
-                  <CardDescription>Client ID: {fdData.clientId}</CardDescription>
+                  <CardDescription>Client ID: {fdData.client_id}</CardDescription>
                 </div>
                 {getStatusBadge(fdData.status)}
               </div>
@@ -256,7 +252,7 @@ const FDTracker = () => {
                     <DollarSign className="w-4 h-4" />
                     <span className="text-sm font-medium">Original Amount</span>
                   </div>
-                  <p className="text-2xl font-bold">{formatCurrency(fdData.originalAmount)}</p>
+                  <p className="text-2xl font-bold">{formatCurrency(fdData.original_amount)}</p>
                 </div>
                 
                 <div className="glass-card p-4 space-y-2">
@@ -264,7 +260,7 @@ const FDTracker = () => {
                     <TrendingUp className="w-4 h-4" />
                     <span className="text-sm font-medium">Current Value</span>
                   </div>
-                  <p className="text-2xl font-bold text-success">{formatCurrency(fdData.currentValue)}</p>
+                  <p className="text-2xl font-bold text-success">{formatCurrency(fdData.current_value)}</p>
                 </div>
                 
                 <div className="glass-card p-4 space-y-2">
@@ -272,7 +268,7 @@ const FDTracker = () => {
                     <Percent className="w-4 h-4" />
                     <span className="text-sm font-medium">Interest Rate</span>
                   </div>
-                  <p className="text-2xl font-bold text-primary">{fdData.interestRate}% p.a.</p>
+                  <p className="text-2xl font-bold text-primary">{fdData.interest_rate}% p.a.</p>
                   <p className="text-xs text-muted-foreground">Fixed at deposit time</p>
                 </div>
                 
@@ -281,7 +277,7 @@ const FDTracker = () => {
                     <Calendar className="w-4 h-4" />
                     <span className="text-sm font-medium">Maturity Date</span>
                   </div>
-                  <p className="text-lg font-bold">{formatDate(fdData.maturityDate)}</p>
+                  <p className="text-lg font-bold">{formatDate(fdData.maturity_date)}</p>
                 </div>
               </div>
               
@@ -290,12 +286,12 @@ const FDTracker = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-muted-foreground">Expected Maturity Amount</p>
-                    <p className="text-3xl font-bold text-primary">{formatCurrency(fdData.maturityAmount)}</p>
+                    <p className="text-3xl font-bold text-primary">{formatCurrency(fdData.maturity_amount)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Total Returns</p>
                     <p className="text-2xl font-bold text-success">
-                      +{formatCurrency(fdData.maturityAmount - fdData.originalAmount)}
+                      +{formatCurrency(fdData.maturity_amount - fdData.original_amount)}
                     </p>
                   </div>
                 </div>
@@ -303,29 +299,6 @@ const FDTracker = () => {
             </CardContent>
           </Card>
         )}
-
-        {/* Info Section */}
-        <Card className="glass-card">
-          <CardHeader>
-            <CardTitle className="text-lg">How Fixed Deposits Work</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm text-muted-foreground">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <h4 className="font-semibold text-foreground">🔒 Secure Investment</h4>
-                <p>Fixed Deposits offer guaranteed returns with capital protection and fixed interest rates.</p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-semibold text-foreground">📈 Fixed Returns</h4>
-                <p>Interest rates are locked at the time of deposit and remain unchanged throughout the tenure.</p>
-              </div>
-              <div className="space-y-2">
-                <h4 className="font-semibold text-foreground">⏰ Flexible Tenure</h4>
-                <p>Choose from various tenure options from 12 months to 10 years based on your financial goals.</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
