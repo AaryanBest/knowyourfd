@@ -2,41 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Banking Dashboard Design System - Professional & Modern */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Primary Banking Colors */
+    --background: 210 30% 98%;
+    --foreground: 220 35% 15%;
 
+    /* Card & Surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 35% 15%;
+    --glass: 0 0% 100% / 0.7;
 
+    /* Banking Brand Colors */
+    --primary: 220 80% 45%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 220 70% 60%;
+    --primary-glow: 220 80% 45% / 0.2;
+
+    /* Status Colors */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 98%;
+    --success-light: 142 71% 50%;
+    --success-bg: 142 71% 45% / 0.1;
+
+    --warning: 45 93% 47%;
+    --warning-foreground: 220 35% 15%;
+    --warning-light: 45 93% 60%;
+    --warning-bg: 45 93% 47% / 0.1;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --destructive-light: 0 84% 70%;
+    --destructive-bg: 0 84% 60% / 0.1;
+
+    /* Neutral Colors */
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 220 35% 15%;
+    --muted: 210 20% 95%;
+    --muted-foreground: 220 15% 50%;
+    --accent: 210 30% 92%;
+    --accent-foreground: 220 35% 15%;
+
+    /* Interactive Elements */
+    --border: 220 20% 88%;
+    --input: 220 20% 94%;
+    --ring: 220 80% 45%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 35% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 80% 45%), hsl(220 70% 60%));
+    --gradient-success: linear-gradient(135deg, hsl(142 71% 45%), hsl(142 71% 50%));
+    --gradient-warning: linear-gradient(135deg, hsl(45 93% 47%), hsl(45 93% 60%));
+    --gradient-bg: linear-gradient(135deg, hsl(210 30% 98%), hsl(220 30% 96%));
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.8), hsl(0 0% 100% / 0.4));
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(220 80% 45% / 0.08);
+    --shadow-md: 0 4px 16px hsl(220 80% 45% / 0.12);
+    --shadow-lg: 0 8px 32px hsl(220 80% 45% / 0.16);
+    --shadow-glass: 0 8px 32px hsl(220 30% 15% / 0.1);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    /* Spacing & Border Radius */
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +132,94 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+    background: var(--gradient-bg);
+  }
+}
+
+@layer components {
+  /* Glass morphism effect for cards */
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/70 border border-white/20;
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Status badge variants */
+  .status-active {
+    @apply bg-success text-success-foreground;
+    background: var(--gradient-success);
+  }
+
+  .status-pending {
+    @apply bg-warning text-warning-foreground;
+    background: var(--gradient-warning);
+  }
+
+  .status-matured {
+    @apply bg-primary text-primary-foreground;
+    background: var(--gradient-primary);
+  }
+
+  .status-closed {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  /* Animated shimmer loading effect */
+  .shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .shimmer::before {
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
+    content: '';
+    animation: shimmer 2s infinite;
+  }
+
+  /* Form focus effects */
+  .input-focus {
+    @apply transition-all duration-200 focus:ring-2 focus:ring-primary/20 focus:border-primary;
+    box-shadow: 0 0 0 3px var(--primary-glow);
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes fadeInUp {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes scaleIn {
+    0% { 
+      opacity: 0; 
+      transform: scale(0.95); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
   }
 }
