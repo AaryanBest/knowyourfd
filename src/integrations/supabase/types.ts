@@ -14,7 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      fixed_deposits: {
+        Row: {
+          client_id: string
+          created_at: string
+          current_value: number
+          id: string
+          interest_rate: number
+          maturity_amount: number
+          maturity_date: string
+          name: string
+          original_amount: number
+          status: string
+          tenure_years: number
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          current_value: number
+          id?: string
+          interest_rate: number
+          maturity_amount: number
+          maturity_date: string
+          name: string
+          original_amount: number
+          status: string
+          tenure_years: number
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          current_value?: number
+          id?: string
+          interest_rate?: number
+          maturity_amount?: number
+          maturity_date?: string
+          name?: string
+          original_amount?: number
+          status?: string
+          tenure_years?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
