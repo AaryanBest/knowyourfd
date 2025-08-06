@@ -119,7 +119,7 @@ const FDTracker = () => {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="py-8 px-4">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Hero Section */}
         <div className="text-center space-y-4 animate-fade-in-up">

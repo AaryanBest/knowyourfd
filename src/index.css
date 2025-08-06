@@ -2,26 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Banking Dashboard Design System - Professional & Modern */
+/* Silicon Valley Banking Design System - Modern & Professional */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   :root {
-    /* Primary Banking Colors */
-    --background: 210 30% 98%;
-    --foreground: 220 35% 15%;
+    /* Premium Background System */
+    --background: 217 33% 97%;
+    --foreground: 215 25% 27%;
 
-    /* Card & Surfaces */
+    /* Advanced Card System */
     --card: 0 0% 100%;
-    --card-foreground: 220 35% 15%;
-    --glass: 0 0% 100% / 0.7;
+    --card-foreground: 215 25% 27%;
+    --glass: 0 0% 100% / 0.85;
 
-    /* Banking Brand Colors */
-    --primary: 220 80% 45%;
-    --primary-foreground: 0 0% 98%;
-    --primary-light: 220 70% 60%;
-    --primary-glow: 220 80% 45% / 0.2;
+    /* Premium Brand Colors - Silicon Valley Style */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 221 83% 65%;
+    --primary-glow: 221 83% 53% / 0.25;
 
     /* Status Colors */
     --success: 142 71% 45%;
@@ -54,18 +55,22 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 35% 15%;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 80% 45%), hsl(220 70% 60%));
-    --gradient-success: linear-gradient(135deg, hsl(142 71% 45%), hsl(142 71% 50%));
-    --gradient-warning: linear-gradient(135deg, hsl(45 93% 47%), hsl(45 93% 60%));
-    --gradient-bg: linear-gradient(135deg, hsl(210 30% 98%), hsl(220 30% 96%));
-    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.8), hsl(0 0% 100% / 0.4));
+    /* Premium Gradients - Silicon Valley Style */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 65%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
+    --gradient-warning: linear-gradient(135deg, hsl(32 95% 44%), hsl(32 95% 54%));
+    --gradient-bg: linear-gradient(135deg, hsl(217 33% 97%), hsl(221 33% 95%));
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(0 0% 100% / 0.6));
+    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53%), hsl(262 83% 58%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.9), hsl(0 0% 100% / 0.7));
 
-    /* Shadows */
-    --shadow-sm: 0 2px 8px hsl(220 80% 45% / 0.08);
-    --shadow-md: 0 4px 16px hsl(220 80% 45% / 0.12);
-    --shadow-lg: 0 8px 32px hsl(220 80% 45% / 0.16);
-    --shadow-glass: 0 8px 32px hsl(220 30% 15% / 0.1);
+    /* Premium Shadow System */
+    --shadow-sm: 0 1px 2px 0 hsl(221 83% 53% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(221 83% 53% / 0.1), 0 2px 4px -2px hsl(221 83% 53% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(221 83% 53% / 0.1), 0 4px 6px -4px hsl(221 83% 53% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(221 83% 53% / 0.1), 0 8px 10px -6px hsl(221 83% 53% / 0.1);
+    --shadow-glass: 0 8px 32px hsl(221 39% 11% / 0.08);
+    --shadow-glow: 0 0 0 1px hsl(221 83% 53% / 0.05), 0 0 20px hsl(221 83% 53% / 0.1);
 
     /* Spacing & Border Radius */
     --radius: 0.75rem;
@@ -132,16 +137,27 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-inter antialiased;
     background: var(--gradient-bg);
+    background-attachment: fixed;
   }
 }
 
 @layer components {
-  /* Glass morphism effect for cards */
+  /* Premium Glass morphism system */
   .glass-card {
-    @apply backdrop-blur-xl bg-white/70 border border-white/20;
-    box-shadow: var(--shadow-glass);
+    @apply backdrop-blur-xl border border-white/20;
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-glass), var(--shadow-glow);
+  }
+
+  /* Enhanced interactive effects */
+  .hover-scale {
+    @apply transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-xl;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 ease-out hover:shadow-glow;
   }
 
   /* Status badge variants */
@@ -175,10 +191,14 @@
     animation: shimmer 2s infinite;
   }
 
-  /* Form focus effects */
+  /* Enhanced form focus effects */
   .input-focus {
-    @apply transition-all duration-200 focus:ring-2 focus:ring-primary/20 focus:border-primary;
-    box-shadow: 0 0 0 3px var(--primary-glow);
+    @apply transition-all duration-300 ease-out focus:ring-2 focus:ring-primary/30 focus:border-primary focus:scale-[1.02];
+    box-shadow: var(--shadow-sm), 0 0 0 3px var(--primary-glow);
+  }
+
+  .input-focus:focus {
+    box-shadow: var(--shadow-md), var(--shadow-glow);
   }
 }
 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div>
       {/* Hero Section */}
       <section className="py-20 px-4 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
@@ -108,9 +108,11 @@ const Index = () => {
                     <p className="text-muted-foreground mb-6">
                       Use our FD calculator to estimate your maturity amount and plan your investments wisely.
                     </p>
-                    <Button className="w-full">
-                      Start Calculating
-                    </Button>
+                    <Link to="/calculator">
+                      <Button className="w-full">
+                        Start Calculating
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </Card>
@@ -134,9 +136,11 @@ const Index = () => {
                 Track Existing FD
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="px-8 py-4 text-lg">
-              Open New FD
-            </Button>
+            <Link to="/open-fd">
+              <Button variant="outline" size="lg" className="px-8 py-4 text-lg">
+                Open New FD
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
