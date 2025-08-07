@@ -59,6 +59,78 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          aadhar_number: string | null
+          address: string | null
+          annual_income: number | null
+          city: string | null
+          created_at: string
+          date_of_birth: string | null
+          first_name: string | null
+          id: string
+          investment_goals: string[] | null
+          is_premium: boolean | null
+          kyc_status: string | null
+          last_name: string | null
+          occupation: string | null
+          pan_number: string | null
+          phone: string | null
+          pincode: string | null
+          preferred_communication: string | null
+          risk_tolerance: string | null
+          state: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          aadhar_number?: string | null
+          address?: string | null
+          annual_income?: number | null
+          city?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          first_name?: string | null
+          id?: string
+          investment_goals?: string[] | null
+          is_premium?: boolean | null
+          kyc_status?: string | null
+          last_name?: string | null
+          occupation?: string | null
+          pan_number?: string | null
+          phone?: string | null
+          pincode?: string | null
+          preferred_communication?: string | null
+          risk_tolerance?: string | null
+          state?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          aadhar_number?: string | null
+          address?: string | null
+          annual_income?: number | null
+          city?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          first_name?: string | null
+          id?: string
+          investment_goals?: string[] | null
+          is_premium?: boolean | null
+          kyc_status?: string | null
+          last_name?: string | null
+          occupation?: string | null
+          pan_number?: string | null
+          phone?: string | null
+          pincode?: string | null
+          preferred_communication?: string | null
+          risk_tolerance?: string | null
+          state?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

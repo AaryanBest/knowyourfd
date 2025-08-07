@@ -59,10 +59,10 @@ const Index = () => {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-scale-in" style={{animationDelay: '0.4s'}}>
-              <Link to="/track">
+              <Link to="/auth">
                 <Button size="lg" className="px-10 py-6 text-lg font-semibold bg-primary hover:bg-primary-dark shadow-hero transition-all duration-300">
                   <BarChart3 className="w-6 h-6 mr-3" />
-                  Access Dashboard
+                  Get Started Free
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>

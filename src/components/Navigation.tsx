@@ -2,12 +2,17 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, TrendingUp, Home, Search, Plus, Calculator } from "lucide-react";
+import { Menu, TrendingUp, Home, Search, Plus, Calculator, User, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/components/AuthWrapper";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
+  const { toast } = useToast();
 
   const navItems = [
     { name: "Home", href: "/", icon: Home },
@@ -21,6 +26,22 @@ const Navigation = () => {
       return location.pathname === "/";
     }
     return location.pathname.startsWith(href);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Signed out successfully",
+        description: "You have been logged out of your account.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error signing out",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const NavLinks = ({ mobile = false, onItemClick }: { mobile?: boolean; onItemClick?: () => void }) => (
@@ -75,8 +96,36 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
-            <NavLinks />
+          <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <NavLinks />
+            </div>
+            
+            {user ? (
+              <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/20">
+                <span className="text-sm text-white/80">
+                  {user.email}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleSignOut}
+                  className="text-white hover:bg-white/10"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-white/20">
+                <Link to="/auth">
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                    <User className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile Navigation */}
@@ -95,6 +144,35 @@ const Navigation = () => {
               </div>
               <div className="flex flex-col gap-2">
                 <NavLinks mobile onItemClick={() => setIsOpen(false)} />
+                
+                {user ? (
+                  <div className="pt-4 mt-4 border-t border-border">
+                    <div className="text-sm text-muted-foreground mb-3 px-4">
+                      Signed in as: {user.email}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      onClick={handleSignOut}
+                      className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
+                    >
+                      <LogOut className="w-5 h-5 mr-2" />
+                      Sign Out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="pt-4 mt-4 border-t border-border">
+                    <Link to="/auth">
+                      <Button
+                        variant="default"
+                        className="w-full justify-start"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <User className="w-5 h-5 mr-2" />
+                        Sign In
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </SheetContent>
           </Sheet>
