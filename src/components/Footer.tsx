@@ -42,21 +42,29 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-muted/30 border-t border-border mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative mt-auto overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-muted/50 via-muted/30 to-background"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary text-primary-foreground">
-                <TrendingUp className="w-6 h-6" />
+            <Link to="/" className="flex items-center gap-4 group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
+                <div className="relative p-3 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
+                  <TrendingUp className="w-7 h-7" />
+                </div>
               </div>
-              <span className="text-xl font-bold">FD Banking Portal</span>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold">Elite FD Portal</span>
+                <span className="text-sm text-muted-foreground">Silicon Valley Banking</span>
+              </div>
             </Link>
             
             <p className="text-muted-foreground max-w-md leading-relaxed">
-              Your trusted partner for secure and profitable Fixed Deposit investments. 
-              We provide transparent, reliable banking services with competitive interest rates.
+              Silicon Valley-grade Fixed Deposit platform designed for sophisticated investors. 
+              Institutional-grade security, premium rates, and AI-powered portfolio management.
             </p>
 
             {/* Contact Info */}

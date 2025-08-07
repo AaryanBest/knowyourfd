@@ -57,15 +57,21 @@ const Navigation = () => {
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-xl bg-primary/95 shadow-lg">
+    <nav className="sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-2xl bg-gradient-to-r from-primary/95 to-primary-dark/95 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-18">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 text-white hover:text-white/90 transition-colors">
-            <div className="p-2 rounded-lg bg-white/10 backdrop-blur-sm">
-              <TrendingUp className="w-6 h-6" />
+          <Link to="/" className="flex items-center gap-4 text-white hover:text-white/90 transition-all duration-300 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-white/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
+              <div className="relative p-3 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm">
+                <TrendingUp className="w-7 h-7" />
+              </div>
             </div>
-            <span className="text-xl font-bold">FD Banking Portal</span>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold">Elite FD Portal</span>
+              <span className="text-xs text-white/70 font-medium">Silicon Valley Banking</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

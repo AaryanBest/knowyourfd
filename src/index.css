@@ -2,51 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Silicon Valley Banking Design System - Modern & Professional */
+/* Silicon Valley Premium Finance Design System */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 @layer base {
   :root {
-    /* Premium Background System */
-    --background: 217 33% 97%;
-    --foreground: 215 25% 27%;
+    /* Silicon Valley Premium Background System */
+    --background: 217 32% 98%;
+    --foreground: 217 91% 5%;
 
-    /* Advanced Card System */
+    /* Advanced Glass & Card System */
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
-    --glass: 0 0% 100% / 0.85;
+    --card-foreground: 217 91% 5%;
+    --glass: 217 32% 100% / 0.8;
+    --glass-border: 217 32% 95% / 0.3;
 
-    /* Premium Brand Colors - Silicon Valley Style */
-    --primary: 221 83% 53%;
+    /* Silicon Valley Finance Colors - Premium Blue & Gold */
+    --primary: 217 92% 45%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 221 83% 65%;
-    --primary-glow: 221 83% 53% / 0.25;
+    --primary-light: 217 92% 55%;
+    --primary-dark: 217 92% 35%;
+    --primary-glow: 217 92% 45% / 0.15;
+    
+    /* Premium Finance Accent */
+    --accent-gold: 43 96% 56%;
+    --accent-gold-light: 43 96% 65%;
+    --accent-gold-dark: 43 96% 45%;
 
-    /* Status Colors */
-    --success: 142 71% 45%;
-    --success-foreground: 0 0% 98%;
-    --success-light: 142 71% 50%;
-    --success-bg: 142 71% 45% / 0.1;
+    /* Finance Status Colors */
+    --success: 134 61% 41%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 134 61% 51%;
+    --success-bg: 134 61% 41% / 0.08;
+    --success-glow: 134 61% 41% / 0.2;
 
-    --warning: 45 93% 47%;
-    --warning-foreground: 220 35% 15%;
-    --warning-light: 45 93% 60%;
-    --warning-bg: 45 93% 47% / 0.1;
+    --warning: 43 96% 56%;
+    --warning-foreground: 217 91% 5%;
+    --warning-light: 43 96% 65%;
+    --warning-bg: 43 96% 56% / 0.08;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --destructive-light: 0 84% 70%;
-    --destructive-bg: 0 84% 60% / 0.1;
+    --destructive: 0 65% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-light: 0 65% 61%;
+    --destructive-bg: 0 65% 51% / 0.08;
 
-    /* Neutral Colors */
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 220 35% 15%;
-    --muted: 210 20% 95%;
-    --muted-foreground: 220 15% 50%;
-    --accent: 210 30% 92%;
-    --accent-foreground: 220 35% 15%;
+    /* Refined Neutral System */
+    --secondary: 217 32% 96%;
+    --secondary-foreground: 217 91% 5%;
+    --muted: 217 32% 94%;
+    --muted-foreground: 217 25% 45%;
+    --accent: 217 32% 92%;
+    --accent-foreground: 217 91% 5%;
 
     /* Interactive Elements */
     --border: 220 20% 88%;
@@ -55,22 +64,25 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 35% 15%;
 
-    /* Premium Gradients - Silicon Valley Style */
-    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 65%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
-    --gradient-warning: linear-gradient(135deg, hsl(32 95% 44%), hsl(32 95% 54%));
-    --gradient-bg: linear-gradient(135deg, hsl(217 33% 97%), hsl(221 33% 95%));
-    --gradient-glass: linear-gradient(135deg, hsl(0 0% 100% / 0.9), hsl(0 0% 100% / 0.6));
-    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53%), hsl(262 83% 58%));
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.9), hsl(0 0% 100% / 0.7));
+    /* Silicon Valley Premium Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 92% 45%), hsl(217 92% 55%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 92% 45%) 0%, hsl(239 84% 67%) 50%, hsl(43 96% 56%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(134 61% 41%), hsl(134 61% 51%));
+    --gradient-warning: linear-gradient(135deg, hsl(43 96% 56%), hsl(43 96% 65%));
+    --gradient-bg: radial-gradient(ellipse at top, hsl(217 32% 99%), hsl(217 32% 97%));
+    --gradient-glass: linear-gradient(135deg, hsl(217 32% 100% / 0.95), hsl(217 32% 100% / 0.7));
+    --gradient-card: linear-gradient(145deg, hsl(217 32% 100% / 0.9), hsl(217 32% 100% / 0.7));
+    --gradient-mesh: radial-gradient(circle at 25% 25%, hsl(217 92% 45% / 0.1) 0%, transparent 50%), 
+                     radial-gradient(circle at 75% 75%, hsl(43 96% 56% / 0.1) 0%, transparent 50%);
 
-    /* Premium Shadow System */
-    --shadow-sm: 0 1px 2px 0 hsl(221 83% 53% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(221 83% 53% / 0.1), 0 2px 4px -2px hsl(221 83% 53% / 0.1);
-    --shadow-lg: 0 10px 15px -3px hsl(221 83% 53% / 0.1), 0 4px 6px -4px hsl(221 83% 53% / 0.1);
-    --shadow-xl: 0 20px 25px -5px hsl(221 83% 53% / 0.1), 0 8px 10px -6px hsl(221 83% 53% / 0.1);
-    --shadow-glass: 0 8px 32px hsl(221 39% 11% / 0.08);
-    --shadow-glow: 0 0 0 1px hsl(221 83% 53% / 0.05), 0 0 20px hsl(221 83% 53% / 0.1);
+    /* Silicon Valley Shadow System */
+    --shadow-sm: 0 1px 3px 0 hsl(217 92% 45% / 0.03), 0 1px 2px 0 hsl(217 92% 45% / 0.06);
+    --shadow-md: 0 4px 6px -1px hsl(217 92% 45% / 0.05), 0 2px 4px -2px hsl(217 92% 45% / 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(217 92% 45% / 0.08), 0 4px 6px -4px hsl(217 92% 45% / 0.05);
+    --shadow-xl: 0 25px 50px -12px hsl(217 92% 45% / 0.15);
+    --shadow-glass: 0 8px 32px hsl(217 92% 45% / 0.04), 0 2px 16px hsl(217 92% 45% / 0.02);
+    --shadow-glow: 0 0 0 1px hsl(217 92% 45% / 0.05), 0 4px 16px hsl(217 92% 45% / 0.08);
+    --shadow-hero: 0 25px 50px -12px hsl(217 92% 45% / 0.25), 0 0 0 1px hsl(217 92% 45% / 0.05);
 
     /* Spacing & Border Radius */
     --radius: 0.75rem;
@@ -137,27 +149,78 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: var(--gradient-bg);
     background-attachment: fixed;
+    position: relative;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-mesh);
+    pointer-events: none;
+    z-index: -1;
   }
 }
 
 @layer components {
-  /* Premium Glass morphism system */
+  /* Silicon Valley Glass Morphism System */
   .glass-card {
-    @apply backdrop-blur-xl border border-white/20;
+    @apply backdrop-blur-2xl border;
     background: var(--gradient-card);
-    box-shadow: var(--shadow-glass), var(--shadow-glow);
+    border-color: var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    position: relative;
+  }
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(217 32% 100% / 0.5), transparent);
   }
 
-  /* Enhanced interactive effects */
+  /* Premium Interactive Effects */
   .hover-scale {
-    @apply transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-xl;
+    @apply transition-all duration-500 ease-out hover:scale-[1.02];
+    box-shadow: var(--shadow-md);
+  }
+  
+  .hover-scale:hover {
+    box-shadow: var(--shadow-xl);
   }
 
   .hover-glow {
-    @apply transition-all duration-300 ease-out hover:shadow-glow;
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Finance Hero Section */
+  .hero-gradient {
+    background: var(--gradient-hero);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease-in-out infinite;
+  }
+  
+  .hero-text {
+    background: linear-gradient(135deg, hsl(217 92% 25%), hsl(217 92% 45%), hsl(43 96% 56%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: textShimmer 4s ease-in-out infinite;
   }
 
   /* Status badge variants */
@@ -203,7 +266,7 @@
 }
 
 @layer utilities {
-  /* Custom animations */
+  /* Silicon Valley Premium Animations */
   @keyframes shimmer {
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
@@ -212,34 +275,57 @@
   @keyframes fadeInUp {
     0% { 
       opacity: 0; 
-      transform: translateY(20px); 
+      transform: translateY(30px);
+      filter: blur(10px);
     }
     100% { 
       opacity: 1; 
-      transform: translateY(0); 
+      transform: translateY(0);
+      filter: blur(0);
     }
   }
 
   @keyframes scaleIn {
     0% { 
       opacity: 0; 
-      transform: scale(0.95); 
+      transform: scale(0.9);
+      filter: blur(10px);
     }
     100% { 
       opacity: 1; 
-      transform: scale(1); 
+      transform: scale(1);
+      filter: blur(0);
     }
+  }
+  
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  @keyframes textShimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.8s ease-out;
   }
 
   .animate-scale-in {
-    animation: scaleIn 0.4s ease-out;
+    animation: scaleIn 0.6s ease-out;
   }
 
   .animate-shimmer {
     animation: shimmer 2s infinite;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
 }
