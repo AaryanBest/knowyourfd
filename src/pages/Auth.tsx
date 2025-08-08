@@ -152,7 +152,7 @@ const Auth = () => {
               </div>
               <div>
                 <h1 className="text-3xl font-bold hero-text">Elite FD Portal</h1>
-                <p className="text-muted-foreground">Silicon Valley Banking</p>
+                <p className="text-muted-foreground">Indian Banking</p>
               </div>
             </div>
 
@@ -206,7 +206,7 @@ const Auth = () => {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold">Elite FD Portal</h1>
-                  <p className="text-sm text-muted-foreground">Silicon Valley Banking</p>
+                  <p className="text-sm text-muted-foreground">Indian Banking</p>
                 </div>
               </div>
             </div>

@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, DollarSign, Calendar, Percent, TrendingUp, User, CreditCard, Clock } from "lucide-react";
+import { Loader2, DollarSign, Calendar, Percent, TrendingUp, User, CreditCard, Clock, FileText, UploadCloud } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -28,6 +28,12 @@ const FDTracker = () => {
   });
   const [fdData, setFdData] = useState<FDData | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // New: document analysis states
+  const [docFile, setDocFile] = useState<File | null>(null);
+  const [docLoading, setDocLoading] = useState(false);
+  const [docResult, setDocResult] = useState<any | null>(null);
+
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -89,12 +95,62 @@ const FDTracker = () => {
     }
   };
 
+  const handleAnalyzeDoc = async () => {
+    if (!docFile) {
+      toast({ title: "Upload a file", description: "Please choose your FD PDF or document.", variant: "destructive" });
+      return;
+    }
+
+    setDocLoading(true);
+    setDocResult(null);
+    try {
+      const {
+        data: { user },
+        error: userError
+      } = await supabase.auth.getUser();
+      if (userError || !user) {
+        toast({ title: "Sign in required", description: "Please sign in to analyze documents.", variant: "destructive" });
+        return;
+      }
+
+      const path = `${user.id}/${Date.now()}_${docFile.name}`;
+      const { error: uploadError } = await supabase.storage.from('fd-docs').upload(path, docFile, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+      if (uploadError) {
+        console.error(uploadError);
+        toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
+        return;
+      }
+
+      // Invoke Edge Function to parse the document
+      const { data, error } = await supabase.functions.invoke('parse-fd-doc', {
+        body: { path }
+      });
+
+      if (error) {
+        console.error(error);
+        toast({ title: "Analysis failed", description: error.message, variant: "destructive" });
+        return;
+      }
+
+      setDocResult(data);
+      toast({ title: "Analysis complete", description: "We extracted key details from your document." });
+    } catch (err) {
+      console.error(err);
+      toast({ title: "Error", description: "Could not analyze the document.", variant: "destructive" });
+    } finally {
+      setDocLoading(false);
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     const statusStyles = {
       'Active': 'status-active',
       'Matured': 'status-matured',
       'Closed': 'status-closed'
-    };
+    } as const;
     
     return (
       <Badge className={`${statusStyles[status as keyof typeof statusStyles]} px-3 py-1 font-medium`}>
@@ -213,6 +269,99 @@ const FDTracker = () => {
                 )}
               </Button>
             </form>
+          </CardContent>
+        </Card>
+
+        {/* New: FD Document Analyzer */}
+        <Card className="glass-card animate-scale-in">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-primary" />
+              Analyze FD Document (PDF)
+            </CardTitle>
+            <CardDescription>Upload your FD receipt/sanction letter and we'll extract key details for you.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
+              <div>
+                <Input
+                  type="file"
+                  accept="application/pdf"
+                  onChange={(e) => setDocFile(e.target.files?.[0] ?? null)}
+                  disabled={docLoading}
+                />
+              </div>
+              <Button onClick={handleAnalyzeDoc} disabled={docLoading} className="md:w-48">
+                {docLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Analyzing...
+                  </>
+                ) : (
+                  <>
+                    <UploadCloud className="w-4 h-4 mr-2" />
+                    Analyze Document
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {docResult && (
+              <div className="mt-4 space-y-4">
+                {docResult?.extracted && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {docResult.extracted.name && (
+                      <div className="glass-card p-4">
+                        <div className="text-sm text-muted-foreground">Name</div>
+                        <div className="text-lg font-semibold">{docResult.extracted.name}</div>
+                      </div>
+                    )}
+                    {docResult.extracted.client_id && (
+                      <div className="glass-card p-4">
+                        <div className="text-sm text-muted-foreground">Client ID</div>
+                        <div className="text-lg font-semibold">{docResult.extracted.client_id}</div>
+                      </div>
+                    )}
+                    {docResult.extracted.interest_rate && (
+                      <div className="glass-card p-4">
+                        <div className="text-sm text-muted-foreground">Interest Rate</div>
+                        <div className="text-lg font-semibold">{docResult.extracted.interest_rate}% p.a.</div>
+                      </div>
+                    )}
+                    {docResult.extracted.tenure_years && (
+                      <div className="glass-card p-4">
+                        <div className="text-sm text-muted-foreground">Tenure</div>
+                        <div className="text-lg font-semibold">{docResult.extracted.tenure_years} years</div>
+                      </div>
+                    )}
+                    {docResult.extracted.original_amount && (
+                      <div className="glass-card p-4">
+                        <div className="text-sm text-muted-foreground">Amount</div>
+                        <div className="text-lg font-semibold">{formatCurrency(docResult.extracted.original_amount)}</div>
+                      </div>
+                    )}
+                    {docResult.extracted.maturity_date && (
+                      <div className="glass-card p-4">
+                        <div className="text-sm text-muted-foreground">Maturity Date</div>
+                        <div className="text-lg font-semibold">{docResult.extracted.maturity_date}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {docResult?.summary && (
+                  <Card className="glass-card">
+                    <CardHeader>
+                      <CardTitle className="text-base">AI Summary</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
+                        {docResult.summary}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            )}
           </CardContent>
         </Card>
 
