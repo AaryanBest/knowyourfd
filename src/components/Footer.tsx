@@ -58,13 +58,13 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-bold">Elite FD Portal</span>
-                <span className="text-sm text-muted-foreground">Silicon Valley Banking</span>
+                <span className="text-sm text-muted-foreground">Indian Banking</span>
               </div>
             </Link>
             
             <p className="text-muted-foreground max-w-md leading-relaxed">
-              Silicon Valley-grade Fixed Deposit platform designed for sophisticated investors. 
-              Institutional-grade security, premium rates, and AI-powered portfolio management.
+              India-first Fixed Deposit platform for discerning investors.
+              RBI-aligned security, DICGC insurance, and intelligent portfolio management.
             </p>
 
             {/* Contact Info */}

@@ -52,7 +52,7 @@ const Index = () => {
               
               <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-light">
                 Experience the future of Fixed Deposit investments with our{" "}
-                <span className="text-primary font-medium">Silicon Valley-grade platform</span>.{" "}
+                <span className="text-primary font-medium">India-first banking platform</span>.{" "}
                 Intelligent portfolio management, real-time analytics, and institutional-grade security.
               </p>
             </div>
@@ -96,7 +96,7 @@ const Index = () => {
               Premium Features
             </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              Silicon Valley Banking Excellence
+              Indian Banking Excellence
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Institutional-grade features designed for sophisticated investors who demand the highest standards

@@ -91,7 +91,7 @@ const Navigation = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold">Elite FD Portal</span>
-              <span className="text-xs text-white/70 font-medium">Silicon Valley Banking</span>
+              <span className="text-xs text-white/70 font-medium">Indian Banking</span>
             </div>
           </Link>
 

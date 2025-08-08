@@ -155,22 +155,26 @@ Would you like specific calculations for any investment amount?`);
   };
 
   return (
-    <div className="py-8 px-4">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="py-16 px-4">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Hero Section */}
-        <div className="text-center space-y-4 animate-fade-in-up">
+        <div className="text-center space-y-6 animate-fade-in-up">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="p-3 rounded-full bg-primary text-primary-foreground">
               <Calculator className="w-8 h-8" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
               FD Calculator
             </h1>
           </div>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Calculate your Fixed Deposit returns with precision and get AI-powered investment insights 
-            tailored to your financial goals.
+          <p className="text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Precision Fixed Deposit returns built for India’s banking ecosystem — RBI-aligned, DICGC-insured context, and investor-first insights.
           </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Badge variant="outline">RBI Regulated</Badge>
+            <Badge variant="outline">DICGC Cover up to ₹5 Lakhs</Badge>
+            <Badge variant="outline">Made for Indian Investors</Badge>
+          </div>
         </div>
 
         <Tabs defaultValue="calculator" className="space-y-8">
