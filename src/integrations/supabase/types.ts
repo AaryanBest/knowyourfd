@@ -14,6 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
+      document_chunks: {
+        Row: {
+          chunk_index: number
+          content: string
+          created_at: string
+          document_id: string
+          id: string
+          metadata: Json
+          pinecone_id: string | null
+          tokens: number | null
+          user_id: string
+        }
+        Insert: {
+          chunk_index: number
+          content: string
+          created_at?: string
+          document_id: string
+          id?: string
+          metadata?: Json
+          pinecone_id?: string | null
+          tokens?: number | null
+          user_id: string
+        }
+        Update: {
+          chunk_index?: number
+          content?: string
+          created_at?: string
+          document_id?: string
+          id?: string
+          metadata?: Json
+          pinecone_id?: string | null
+          tokens?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_chunks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          checksum: string | null
+          created_at: string
+          embedding_model: string | null
+          filename: string
+          id: string
+          mime_type: string | null
+          size_bytes: number | null
+          source: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          checksum?: string | null
+          created_at?: string
+          embedding_model?: string | null
+          filename: string
+          id?: string
+          mime_type?: string | null
+          size_bytes?: number | null
+          source?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          checksum?: string | null
+          created_at?: string
+          embedding_model?: string | null
+          filename?: string
+          id?: string
+          mime_type?: string | null
+          size_bytes?: number | null
+          source?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       fixed_deposits: {
         Row: {
           client_id: string
@@ -127,6 +213,39 @@ export type Database = {
           risk_tolerance?: string | null
           state?: string | null
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      query_logs: {
+        Row: {
+          answer: Json | null
+          created_at: string
+          duration_ms: number | null
+          id: string
+          match_count: number | null
+          matched_clauses: Json | null
+          query_text: string
+          user_id: string
+        }
+        Insert: {
+          answer?: Json | null
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          match_count?: number | null
+          matched_clauses?: Json | null
+          query_text: string
+          user_id: string
+        }
+        Update: {
+          answer?: Json | null
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          match_count?: number | null
+          matched_clauses?: Json | null
+          query_text?: string
           user_id?: string
         }
         Relationships: []
