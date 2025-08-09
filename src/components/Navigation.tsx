@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, TrendingUp, Home, Search, Plus, Calculator, User, LogOut } from "lucide-react";
+import { Menu, TrendingUp, Home, Search, Plus, Calculator, User, LogOut, FileQuestion } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/AuthWrapper";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +17,7 @@ const Navigation = () => {
   const navItems = [
     { name: "Home", href: "/", icon: Home },
     { name: "Track FD", href: "/track", icon: Search },
+    { name: "Policy Q&A", href: "/policy-qa", icon: FileQuestion },
     { name: "Open New FD", href: "/open-fd", icon: Plus },
     { name: "Calculator", href: "/calculator", icon: Calculator },
   ];
@@ -59,14 +60,14 @@ const Navigation = () => {
               "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
               mobile 
                 ? "w-full justify-start text-base py-3" 
-                : "hover:bg-white/10 hover:text-white",
+                : "hover:bg-primary-foreground/10 hover:text-primary-foreground hover-glow",
               active 
                 ? mobile
                   ? "bg-primary text-primary-foreground"
-                  : "bg-white/15 text-white"
+                  : "bg-primary-foreground/15 text-primary-foreground"
                 : mobile
                   ? "text-muted-foreground hover:text-foreground hover:bg-accent"
-                  : "text-white/80"
+                  : "text-primary-foreground/80"
             )}
           >
             <Icon className={cn("w-4 h-4", mobile && "w-5 h-5")} />
@@ -78,20 +79,20 @@ const Navigation = () => {
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-2xl bg-gradient-to-r from-primary/95 to-primary-dark/95 shadow-xl">
+    <nav className="sticky top-0 z-50 w-full border-b border-primary-foreground/10 backdrop-blur-2xl bg-gradient-to-r from-primary/95 to-primary-dark/95 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-4 text-white hover:text-white/90 transition-all duration-300 group">
+          <Link to="/" className="flex items-center gap-4 text-primary-foreground hover:text-primary-foreground/90 transition-all duration-300 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-white/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
-              <div className="relative p-3 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-primary-foreground/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
+              <div className="relative p-3 rounded-xl bg-gradient-to-br from-primary-foreground/10 to-primary-foreground/5 backdrop-blur-sm">
                 <TrendingUp className="w-7 h-7" />
               </div>
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold">Elite FD Portal</span>
-              <span className="text-xs text-white/70 font-medium">Indian Banking</span>
+              <span className="text-xs text-primary-foreground/80 font-medium">Indian Banking</span>
             </div>
           </Link>
 
@@ -102,24 +103,24 @@ const Navigation = () => {
             </div>
             
             {user ? (
-              <div className="flex items-center gap-3 ml-4 pl-4 border-l border-white/20">
-                <span className="text-sm text-white/80">
+              <div className="flex items-center gap-3 ml-4 pl-4 border-l border-primary-foreground/20">
+                <span className="text-sm text-primary-foreground/80">
                   {user.email}
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleSignOut}
-                  className="text-white hover:bg-white/10"
+                  className="text-primary-foreground hover:bg-primary-foreground/10"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
                 </Button>
               </div>
             ) : (
-              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-white/20">
+              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-primary-foreground/20">
                 <Link to="/auth">
-                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/10">
+                  <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
                     <User className="w-4 h-4 mr-2" />
                     Sign In
                   </Button>
@@ -131,7 +132,7 @@ const Navigation = () => {
           {/* Mobile Navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
                 <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>

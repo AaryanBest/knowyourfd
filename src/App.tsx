@@ -10,6 +10,7 @@ import Auth from "./pages/Auth";
 import FDTracker from "./pages/FDTracker";
 import OpenFD from "./pages/OpenFD";
 import Calculator from "./pages/Calculator";
+import PolicyQA from "./pages/PolicyQA";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
               <Route path="/track" element={<FDTracker />} />
               <Route path="/open-fd" element={<OpenFD />} />
               <Route path="/calculator" element={<Calculator />} />
+              <Route path="/policy-qa" element={<PolicyQA />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
