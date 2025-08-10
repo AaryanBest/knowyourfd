@@ -7,80 +7,75 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/AuthWrapper";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { user } = useAuth();
-  const { toast } = useToast();
-
-  const navItems = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "Track FD", href: "/track", icon: Search },
-    { name: "Policy Q&A", href: "/policy-qa", icon: FileQuestion },
-    { name: "Open New FD", href: "/open-fd", icon: Plus },
-    { name: "Calculator", href: "/calculator", icon: Calculator },
-  ];
-
+  const {
+    user
+  } = useAuth();
+  const {
+    toast
+  } = useToast();
+  const navItems = [{
+    name: "Home",
+    href: "/",
+    icon: Home
+  }, {
+    name: "Track FD",
+    href: "/track",
+    icon: Search
+  }, {
+    name: "Policy Q&A",
+    href: "/policy-qa",
+    icon: FileQuestion
+  }, {
+    name: "Open New FD",
+    href: "/open-fd",
+    icon: Plus
+  }, {
+    name: "Calculator",
+    href: "/calculator",
+    icon: Calculator
+  }];
   const isActive = (href: string) => {
     if (href === "/") {
       return location.pathname === "/";
     }
     return location.pathname.startsWith(href);
   };
-
   const handleSignOut = async () => {
     try {
       await supabase.auth.signOut();
       toast({
         title: "Signed out successfully",
-        description: "You have been logged out of your account.",
+        description: "You have been logged out of your account."
       });
     } catch (error) {
       toast({
         title: "Error signing out",
         description: "Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
-
-  const NavLinks = ({ mobile = false, onItemClick }: { mobile?: boolean; onItemClick?: () => void }) => (
-    <>
-      {navItems.map((item) => {
-        const Icon = item.icon;
-        const active = isActive(item.href);
-        
-        return (
-          <Link
-            key={item.name}
-            to={item.href}
-            onClick={onItemClick}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-              mobile 
-                ? "w-full justify-start text-base py-3" 
-                : "hover:bg-primary-foreground/10 hover:text-primary-foreground hover-glow",
-              active 
-                ? mobile
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-primary-foreground/15 text-primary-foreground"
-                : mobile
-                  ? "text-muted-foreground hover:text-foreground hover:bg-accent"
-                  : "text-primary-foreground/80"
-            )}
-          >
+  const NavLinks = ({
+    mobile = false,
+    onItemClick
+  }: {
+    mobile?: boolean;
+    onItemClick?: () => void;
+  }) => <>
+      {navItems.map(item => {
+      const Icon = item.icon;
+      const active = isActive(item.href);
+      return <Link key={item.name} to={item.href} onClick={onItemClick} className={cn("flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200", mobile ? "w-full justify-start text-base py-3" : "hover:bg-primary-foreground/10 hover:text-primary-foreground hover-glow", active ? mobile ? "bg-primary text-primary-foreground" : "bg-primary-foreground/15 text-primary-foreground" : mobile ? "text-muted-foreground hover:text-foreground hover:bg-accent" : "text-primary-foreground/80")}>
             <Icon className={cn("w-4 h-4", mobile && "w-5 h-5")} />
             {item.name}
-          </Link>
-        );
-      })}
-    </>
-  );
-
-  return (
-    <nav className="sticky top-0 z-50 w-full border-b border-primary-foreground/10 backdrop-blur-2xl bg-gradient-to-r from-primary/95 to-primary-dark/95 shadow-xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          </Link>;
+    })}
+    </>;
+  return <nav className="sticky top-0 z-50 w-full border-b border-primary-foreground/10 backdrop-blur-2xl bg-gradient-to-r from-primary/95 to-primary-dark/95 shadow-xl">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 sm:px-0">
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-4 text-primary-foreground hover:text-primary-foreground/90 transition-all duration-300 group">
@@ -102,31 +97,22 @@ const Navigation = () => {
               <NavLinks />
             </div>
             
-            {user ? (
-              <div className="flex items-center gap-3 ml-4 pl-4 border-l border-primary-foreground/20">
+            {user ? <div className="flex items-center gap-3 ml-4 pl-4 border-l border-primary-foreground/20">
                 <span className="text-sm text-primary-foreground/80">
                   {user.email}
                 </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleSignOut}
-                  className="text-primary-foreground hover:bg-primary-foreground/10"
-                >
+                <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-primary-foreground hover:bg-primary-foreground/10">
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
                 </Button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 ml-4 pl-4 border-l border-primary-foreground/20">
+              </div> : <div className="flex items-center gap-2 ml-4 pl-4 border-l border-primary-foreground/20">
                 <Link to="/auth">
                   <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
                     <User className="w-4 h-4 mr-2" />
                     Sign In
                   </Button>
                 </Link>
-              </div>
-            )}
+              </div>}
           </div>
 
           {/* Mobile Navigation */}
@@ -146,41 +132,27 @@ const Navigation = () => {
               <div className="flex flex-col gap-2">
                 <NavLinks mobile onItemClick={() => setIsOpen(false)} />
                 
-                {user ? (
-                  <div className="pt-4 mt-4 border-t border-border">
+                {user ? <div className="pt-4 mt-4 border-t border-border">
                     <div className="text-sm text-muted-foreground mb-3 px-4">
                       Signed in as: {user.email}
                     </div>
-                    <Button
-                      variant="ghost"
-                      onClick={handleSignOut}
-                      className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
-                    >
+                    <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10">
                       <LogOut className="w-5 h-5 mr-2" />
                       Sign Out
                     </Button>
-                  </div>
-                ) : (
-                  <div className="pt-4 mt-4 border-t border-border">
+                  </div> : <div className="pt-4 mt-4 border-t border-border">
                     <Link to="/auth">
-                      <Button
-                        variant="default"
-                        className="w-full justify-start"
-                        onClick={() => setIsOpen(false)}
-                      >
+                      <Button variant="default" className="w-full justify-start" onClick={() => setIsOpen(false)}>
                         <User className="w-5 h-5 mr-2" />
                         Sign In
                       </Button>
                     </Link>
-                  </div>
-                )}
+                  </div>}
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </div>
-    </nav>
-  );
+    </nav>;
 };
-
 export default Navigation;
