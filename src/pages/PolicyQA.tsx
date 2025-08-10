@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import DocumentIngestor from "@/components/DocumentIngestor";
 import PolicyQAWidget from "@/components/PolicyQAWidget";
+import DocumentsManager from "@/components/DocumentsManager";
 
 const PolicyQA = () => {
   useEffect(() => {
@@ -21,6 +22,10 @@ const PolicyQA = () => {
         <section className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-6">
           <DocumentIngestor />
           <PolicyQAWidget />
+        </section>
+
+        <section className="max-w-5xl mx-auto px-4 mt-10">
+          <DocumentsManager />
         </section>
 
         <section className="max-w-5xl mx-auto px-4 mt-10">

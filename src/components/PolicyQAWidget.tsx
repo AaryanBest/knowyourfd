@@ -24,6 +24,7 @@ export const PolicyQAWidget = () => {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<QAResponse | null>(null);
+  const [showSources, setShowSources] = useState(true);
 
   const ask = async () => {
     if (!query.trim()) return;
@@ -45,15 +46,35 @@ export const PolicyQAWidget = () => {
     <Card className="p-6 glass-card">
       <h2 className="text-lg font-semibold mb-2">Ask your policy</h2>
       <p className="text-sm text-muted-foreground mb-4">Example: “Does this policy cover knee surgery, and what are the conditions?”</p>
-      <div className="space-y-3">
-        <Textarea
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Type your question…"
-          className="min-h-[100px]"
-        />
-        <Button onClick={ask} disabled={loading}>{loading ? "Thinking…" : "Ask"}</Button>
-      </div>
+        <div className="space-y-3">
+          <Textarea
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Type your question…"
+            className="min-h-[100px]"
+          />
+          <div className="flex items-center gap-2">
+            <Button onClick={ask} disabled={loading}>{loading ? "Thinking…" : "Ask"}</Button>
+            {result && (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    if (result?.answer) {
+                      navigator.clipboard.writeText(result.answer);
+                      toast({ title: "Copied", description: "Answer copied to clipboard." });
+                    }
+                  }}
+                >
+                  Copy answer
+                </Button>
+                <Button variant="ghost" onClick={() => setShowSources((s) => !s)}>
+                  {showSources ? "Hide sources" : "Show sources"}
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
 
       {result && (
         <div className="mt-6 space-y-4">
@@ -69,7 +90,7 @@ export const PolicyQAWidget = () => {
               </ul>
             )}
           </div>
-          {result.matched_clauses && result.matched_clauses.length > 0 && (
+          {result.matched_clauses && result.matched_clauses.length > 0 && showSources && (
             <div>
               <h4 className="text-sm font-semibold mb-1">Matched Clauses</h4>
               <div className="space-y-2">

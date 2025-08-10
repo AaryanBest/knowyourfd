@@ -139,7 +139,7 @@ Deno.serve(async (req) => {
     // Insert document row
     const { data: docRow, error: docErr } = await supabase
       .from('documents')
-      .insert({ user_id: userId, filename, mime_type, size_bytes: buffer.byteLength, source: 'upload', embedding_model: model })
+      .insert({ user_id: userId, filename, mime_type, size_bytes: buffer.byteLength, source: 'upload', embedding_model: model, storage_path: path })
       .select('id')
       .single();
     if (docErr) throw docErr;
