@@ -69,6 +69,7 @@ export type Database = {
           size_bytes: number | null
           source: string | null
           status: string
+          storage_path: string | null
           updated_at: string
           user_id: string
         }
@@ -82,6 +83,7 @@ export type Database = {
           size_bytes?: number | null
           source?: string | null
           status?: string
+          storage_path?: string | null
           updated_at?: string
           user_id: string
         }
@@ -95,6 +97,7 @@ export type Database = {
           size_bytes?: number | null
           source?: string | null
           status?: string
+          storage_path?: string | null
           updated_at?: string
           user_id?: string
         }
