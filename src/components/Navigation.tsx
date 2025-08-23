@@ -78,7 +78,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 lg:px-8 sm:px-0">
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-4 text-primary-foreground hover:text-primary-foreground/90 transition-all duration-300 group">
+          <Link to="/" className="flex items-center gap-4 text-primary-foreground hover:text-primary-foreground/90 transition-all duration-300 group my-[5px]">
             <div className="relative">
               <div className="absolute inset-0 bg-primary-foreground/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
               <div className="relative p-3 rounded-xl bg-gradient-to-br from-primary-foreground/10 to-primary-foreground/5 backdrop-blur-sm">
