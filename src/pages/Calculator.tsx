@@ -177,7 +177,7 @@ Would you like specific calculations for any investment amount?`);
           </div>
         </div>
 
-        <Tabs defaultValue="calculator" className="space-y-8">
+        <Tabs defaultValue="calculator" className="space-y-10">
           <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
             <TabsTrigger value="calculator" className="flex items-center gap-2">
               <Calculator className="w-4 h-4" />
@@ -189,8 +189,8 @@ Would you like specific calculations for any investment amount?`);
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="calculator" className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <TabsContent value="calculator" className="space-y-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
               {/* Calculator Input */}
               <Card className="glass-card animate-scale-in">
                 <CardHeader>

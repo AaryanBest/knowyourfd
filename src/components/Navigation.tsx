@@ -68,46 +68,59 @@ const Navigation = () => {
       {navItems.map(item => {
       const Icon = item.icon;
       const active = isActive(item.href);
-      return <Link key={item.name} to={item.href} onClick={onItemClick} className={cn("flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200", mobile ? "w-full justify-start text-base py-3" : "hover:bg-primary-foreground/10 hover:text-primary-foreground hover-glow", active ? mobile ? "bg-primary text-primary-foreground" : "bg-primary-foreground/15 text-primary-foreground" : mobile ? "text-muted-foreground hover:text-foreground hover:bg-accent" : "text-primary-foreground/80")}>
+      return <Link key={item.name} to={item.href} onClick={onItemClick} className={cn("flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200", mobile ? "w-full justify-start text-base py-3" : "hover:bg-white/20 hover:text-white hover:shadow-lg hover:scale-105", active ? mobile ? "bg-primary text-primary-foreground" : "bg-white/20 text-white shadow-lg scale-105 border border-white/30" : mobile ? "text-muted-foreground hover:text-foreground hover:bg-accent" : "text-white/90 hover:text-white")}>
             <Icon className={cn("w-4 h-4", mobile && "w-5 h-5")} />
             {item.name}
           </Link>;
     })}
     </>;
-  return <nav className="sticky top-0 z-50 w-full border-b border-primary-foreground/10 backdrop-blur-2xl bg-gradient-to-r from-primary/95 to-primary-dark/95 shadow-xl">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 sm:px-0">
-        <div className="flex justify-between items-center h-18">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-4 text-primary-foreground hover:text-primary-foreground/90 transition-all duration-300 group my-[5px]">
+  return <nav className="sticky top-0 z-50 w-full border-b border-white/10 backdrop-blur-xl bg-gradient-to-r from-primary via-primary-dark to-primary shadow-2xl">
+      {/* Enhanced background with better contrast */}
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/98 via-primary-dark/98 to-primary/98"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/10"></div>
+      
+      <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          {/* Enhanced Logo */}
+          <Link to="/" className="flex items-center gap-4 text-white hover:text-white/95 transition-all duration-300 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-primary-foreground/20 rounded-xl blur-md group-hover:blur-lg transition-all"></div>
-              <div className="relative p-3 rounded-xl bg-gradient-to-br from-primary-foreground/10 to-primary-foreground/5 backdrop-blur-sm">
-                <TrendingUp className="w-7 h-7" />
+              <div className="absolute inset-0 bg-white/30 rounded-2xl blur-lg group-hover:blur-xl transition-all"></div>
+              <div className="relative p-4 rounded-2xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-sm border border-white/20">
+                <TrendingUp className="w-8 h-8 text-white drop-shadow-sm" />
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold">Elite FD Portal</span>
-              <span className="text-xs text-primary-foreground/80 font-medium">Indian Banking</span>
+              <span className="text-2xl font-bold text-white drop-shadow-sm">Elite FD Portal</span>
+              <span className="text-sm text-white/90 font-medium drop-shadow-sm">Premium Indian Banking</span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-2">
+          {/* Enhanced Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-1 bg-white/10 rounded-2xl p-2 backdrop-blur-sm border border-white/20">
               <NavLinks />
             </div>
             
-            {user ? <div className="flex items-center gap-3 ml-4 pl-4 border-l border-primary-foreground/20">
-                <span className="text-sm text-primary-foreground/80">
+            {user ? <div className="flex items-center gap-4 ml-2 pl-6 border-l border-white/30">
+                <span className="text-sm text-white/95 font-medium drop-shadow-sm">
                   {user.email}
                 </span>
-                <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-primary-foreground hover:bg-primary-foreground/10">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleSignOut} 
+                  className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm"
+                >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
                 </Button>
-              </div> : <div className="flex items-center gap-2 ml-4 pl-4 border-l border-primary-foreground/20">
+              </div> : <div className="flex items-center gap-2 ml-2 pl-6 border-l border-white/30">
                 <Link to="/auth">
-                  <Button variant="ghost" size="sm" className="text-primary-foreground hover:bg-primary-foreground/10">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm font-medium"
+                  >
                     <User className="w-4 h-4 mr-2" />
                     Sign In
                   </Button>
@@ -115,10 +128,14 @@ const Navigation = () => {
               </div>}
           </div>
 
-          {/* Mobile Navigation */}
+          {/* Enhanced Mobile Navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm"
+              >
                 <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>

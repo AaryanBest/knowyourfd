@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="relative py-24 px-4 overflow-hidden">
+      <section className="relative py-20 px-4 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 hero-gradient opacity-5"></div>
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-float"></div>
@@ -88,7 +88,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 px-4 relative">
+      <section className="py-20 px-4 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20 animate-fade-in-up">
             <Badge variant="outline" className="px-4 py-2 mb-6 bg-primary/5 border-primary/20 text-primary">
@@ -137,7 +137,7 @@ const Index = () => {
       </section>
 
       {/* Investment Intelligence Section */}
-      <section className="py-24 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative overflow-hidden">
+      <section className="py-20 px-4 bg-gradient-to-br from-muted/30 to-muted/10 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto">
@@ -238,7 +238,7 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-4 relative overflow-hidden">
+      <section className="py-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-warning/5"></div>
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
         

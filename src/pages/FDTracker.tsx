@@ -221,23 +221,26 @@ const FDTracker = () => {
   };
 
   return (
-    <div className="py-8 px-4">
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* Hero Section */}
-        <div className="text-center space-y-4 animate-fade-in-up">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="p-3 rounded-full bg-primary text-primary-foreground">
-              <TrendingUp className="w-8 h-8" />
+        <div className="relative py-20 px-4">
+          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
+            {/* Hero Section */}
+            <div className="text-center space-y-6">
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl"></div>
+                  <div className="relative p-4 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5">
+                    <TrendingUp className="w-10 h-10 text-primary" />
+                  </div>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+                  FD Tracker
+                </h1>
+              </div>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Track your Fixed Deposits with ease. Enter your details below to check your investment status, 
+                maturity amount, and current value.
+              </p>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-              FD Tracker
-            </h1>
-          </div>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Track your Fixed Deposits with ease. Enter your details below to check your investment status, 
-            maturity amount, and current value.
-          </p>
-        </div>
 
         {/* Search Form */}
         <Card className="glass-card animate-scale-in">

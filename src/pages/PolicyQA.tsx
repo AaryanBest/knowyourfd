@@ -10,33 +10,39 @@ const PolicyQA = () => {
   }, []);
 
   return (
-    <>
-      <header className="py-10">
-        <div className="max-w-5xl mx-auto px-4">
-          <h1 className="text-3xl font-bold">Policy Q&A – Clause Retrieval</h1>
-          <p className="text-muted-foreground mt-2">Upload your policy and ask natural language questions. We retrieve matching clauses and respond with structured answers.</p>
-        </div>
-      </header>
+    <div className="py-8 px-4">
+      <div className="max-w-5xl mx-auto">
+        {/* Header Section */}
+        <header className="mb-12 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+            Policy Q&A – Clause Retrieval
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Upload your policy and ask natural language questions. We retrieve matching clauses and respond with structured answers.
+          </p>
+        </header>
 
-      <main className="pb-16">
-        <section className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-6">
-          <DocumentIngestor />
-          <PolicyQAWidget />
-        </section>
+        {/* Main Content */}
+        <main className="space-y-12">
+          <section className="grid md:grid-cols-2 gap-8">
+            <DocumentIngestor />
+            <PolicyQAWidget />
+          </section>
 
-        <section className="max-w-5xl mx-auto px-4 mt-10">
-          <DocumentsManager />
-        </section>
+          <section>
+            <DocumentsManager />
+          </section>
 
-        <section className="max-w-5xl mx-auto px-4 mt-10">
-          <Card className="p-4">
-            <p className="text-sm text-muted-foreground">
-              Note: Initial version supports PDF (text-based) and EML reliably; DOCX support will be refined next.
-            </p>
-          </Card>
-        </section>
-      </main>
-    </>
+          <section>
+            <Card className="p-6 bg-muted/30 border-muted/50">
+              <p className="text-sm text-muted-foreground text-center">
+                <strong>Note:</strong> Initial version supports PDF (text-based) and EML reliably; DOCX support will be refined next.
+              </p>
+            </Card>
+          </section>
+        </main>
+      </div>
+    </div>
   );
 };
 
