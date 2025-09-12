@@ -80,7 +80,7 @@ const Navigation = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-black/5 to-black/10"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-20 my-0">
           {/* Enhanced Logo */}
           <Link to="/" className="flex items-center gap-4 text-white hover:text-white/95 transition-all duration-300 group">
             <div className="relative">
@@ -97,7 +97,7 @@ const Navigation = () => {
 
           {/* Enhanced Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center gap-1 bg-white/10 rounded-2xl p-2 backdrop-blur-sm border border-white/20">
+            <div className="flex items-center gap-1 bg-white/10 rounded-2xl p-2 backdrop-blur-sm border border-white/20 px-[8px] py-[4px]">
               <NavLinks />
             </div>
             
@@ -105,22 +105,13 @@ const Navigation = () => {
                 <span className="text-sm text-white/95 font-medium drop-shadow-sm">
                   {user.email}
                 </span>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={handleSignOut} 
-                  className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm"
-                >
+                <Button variant="ghost" size="sm" onClick={handleSignOut} className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm">
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
                 </Button>
               </div> : <div className="flex items-center gap-2 ml-2 pl-6 border-l border-white/30">
                 <Link to="/auth">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm font-medium"
-                  >
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm font-medium">
                     <User className="w-4 h-4 mr-2" />
                     Sign In
                   </Button>
@@ -131,11 +122,7 @@ const Navigation = () => {
           {/* Enhanced Mobile Navigation */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm"
-              >
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm">
                 <Menu className="w-6 h-6" />
               </Button>
             </SheetTrigger>
