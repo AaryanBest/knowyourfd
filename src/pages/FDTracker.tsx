@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, DollarSign, Calendar, Percent, TrendingUp, User, CreditCard, Clock, FileText, UploadCloud } from "lucide-react";
+import { Loader2, DollarSign, Calendar, Percent, TrendingUp, User, CreditCard, Clock, FileText, UploadCloud, ShieldAlert } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/components/AuthWrapper";
 
 interface FDData {
   name: string;
@@ -21,6 +22,7 @@ interface FDData {
 }
 
 const FDTracker = () => {
+  const { user, loading: authLoading } = useAuth();
   const [formData, setFormData] = useState({
     name: '',
     clientId: '',
@@ -35,6 +37,52 @@ const FDTracker = () => {
   const [docResult, setDocResult] = useState<any | null>(null);
 
   const { toast } = useToast();
+
+  // Show login requirement if not authenticated
+  if (authLoading) {
+    return (
+      <div className="py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <Card className="glass-card">
+            <CardContent className="py-12">
+              <div className="text-center">
+                <Loader2 className="w-8 h-8 mx-auto animate-spin text-primary" />
+                <p className="mt-4 text-muted-foreground">Loading...</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <Card className="glass-card">
+            <CardContent className="py-12">
+              <div className="text-center space-y-4">
+                <ShieldAlert className="w-16 h-16 mx-auto text-amber-500" />
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-bold">Authentication Required</h2>
+                  <p className="text-muted-foreground">
+                    You need to sign in to view your Fixed Deposit information for security reasons.
+                  </p>
+                </div>
+                <Button 
+                  onClick={() => window.location.href = '/auth'}
+                  className="mt-4"
+                >
+                  Sign In to Continue
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +102,7 @@ const FDTracker = () => {
       const { data, error } = await supabase
         .from('fixed_deposits')
         .select('*')
+        .eq('user_id', user.id)
         .eq('client_id', formData.clientId)
         .eq('name', formData.name)
         .eq('tenure_years', parseInt(formData.tenure))
@@ -101,17 +150,14 @@ const FDTracker = () => {
       return;
     }
 
+    if (!user) {
+      toast({ title: "Sign in required", description: "Please sign in to analyze documents.", variant: "destructive" });
+      return;
+    }
+
     setDocLoading(true);
     setDocResult(null);
     try {
-      const {
-        data: { user },
-        error: userError
-      } = await supabase.auth.getUser();
-      if (userError || !user) {
-        toast({ title: "Sign in required", description: "Please sign in to analyze documents.", variant: "destructive" });
-        return;
-      }
 
       const path = `${user.id}/${Date.now()}_${docFile.name}`;
       const { error: uploadError } = await supabase.storage.from('fd-docs').upload(path, docFile, {
